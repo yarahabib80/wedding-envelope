@@ -5,67 +5,81 @@
 <title>Mariage Georges & Yara</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-/* Body and font */
+/* Body basic */
 html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  text-align: center;
   background-color: #fff7ee;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* Full-screen envelope cover */
-.envelope-cover {
-  position: fixed;
-  top:0; left:0;
+/* ===== FIRST PAGE: CLOSED ENVELOPE ===== */
+.landing {
+  position: relative;
   width: 100%;
-  height: 100%;
-  background: #fff7ee url('https://images.unsplash.com/photo-1612197521257-df2d1863c90d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDJ8fHdlZGRpbmclMjBlbnZlbG9wZXxlbnwwfHx8fDE2ODA3NDAwNzU&ixlib=rb-4.0.3&q=80&w=1080') center/cover no-repeat;
+  height: 100vh;
+  background-color: #fff7ee;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
-/* Names on envelope */
-.envelope-cover h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 16vw;
-  color: #74583e;
-  margin: 0;
+/* Envelope background or illustration */
+.landing .envelope-body {
+  width: 300px;
+  height: 200px;
+  background: #f4e1d2;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Circular flap/open button */
-.open-flap {
-  margin-top: 50px;
-  width: 80px;
-  height: 80px;
+/* Circle seal / open button */
+.landing .seal {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
   background: #c8a96a;
   border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  font-weight: bold;
   transition: transform 0.2s ease;
 }
-.open-flap:hover {
-  transform: scale(1.1);
+.landing .seal:hover { transform: translateX(-50%) scale(1.1); }
+
+/* Envelope title on first page */
+.landing h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 12vw;
+  color: #74583e;
+  margin: 0 0 50px 0;
 }
 
-/* RSVP container hidden below the fold */
-.container {
-  margin-top: 100vh; /* start under full-screen */
+/* ===== SECOND PAGE: RSVP DETAILS ===== */
+#rsvp-section {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  justify-content: center;
+  padding: 20px;
 }
 
-/* Names in RSVP section */
+/* RSVP Names */
 h1.rsvp-names {
   font-family: 'Great Vibes', cursive;
   font-size: 14vw;
@@ -73,7 +87,7 @@ h1.rsvp-names {
   margin: 10px 0;
 }
 
-/* Instruction text */
+/* Instructions & texts */
 #message, #guest-name, #num-guests,
 p.instruction {
   font-size: 6vw;
@@ -105,7 +119,7 @@ button.confirm, button.decline {
 }
 button.confirm:hover, button.decline:hover { transform: scale(1.05); }
 
-/* Love message textarea */
+/* Love message box */
 textarea {
   width: 90%;
   max-width: 400px;
@@ -139,25 +153,26 @@ button#submit:hover {
   background: #5c4631;
 }
 
-/* Mobile tweaks */
+/* ===== Mobile tweaks ===== */
 @media (max-width: 480px) {
-  .envelope-cover h1, h1.rsvp-names { font-size: 16vw; }
+  .landing h1, h1.rsvp-names { font-size: 16vw; }
   #message, #guest-name, #num-guests, p.instruction { font-size: 7vw; }
   button.confirm, button.decline, button#submit { font-size: 5vw; }
   textarea { font-size: 5vw; height: 90px; width: 95%; }
-  .open-flap { width: 60px; height: 60px; font-size: 1.5rem; }
+  .landing .seal { width: 50px; height: 50px; font-size: 1.2rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- Envelope cover -->
-<div class="envelope-cover">
+<!-- ===== FIRST PAGE: CLOSED ENVELOPE ===== -->
+<div class="landing">
   <h1>Georges & Yara</h1>
-  <div class="open-flap" onclick="openEnvelope()">&#x1F4E9;</div>
+  <div class="envelope-body"></div>
+  <div class="seal" onclick="openEnvelope()">&#x1F4E9;</div>
 </div>
 
-<!-- RSVP section -->
+<!-- ===== SECOND PAGE: RSVP ===== -->
 <div class="container" id="rsvp-section">
   <h1 class="rsvp-names">Georges & Yara</h1>
   <div id="message"></div>
@@ -182,13 +197,9 @@ button#submit:hover {
 <script>
 // Envelope flap click
 function openEnvelope() {
-  // fade out envelope
-  const envelope = document.querySelector('.envelope-cover');
-  envelope.style.transition = "opacity 0.7s ease";
-  envelope.style.opacity = 0;
-  setTimeout(() => { envelope.style.display = 'none'; }, 700);
-
-  // scroll to RSVP section
+  document.querySelector('.landing').style.transition = "opacity 0.7s ease";
+  document.querySelector('.landing').style.opacity = 0;
+  setTimeout(() => { document.querySelector('.landing').style.display = 'none'; }, 700);
   document.getElementById('rsvp-section').scrollIntoView({behavior: 'smooth'});
 }
 
@@ -204,12 +215,12 @@ if(name && guests){
   document.getElementById("num-guests").innerText = guests;
 }
 
-// Track RSVP selection silently
+// Track RSVP silently
 let attending = null;
 function selectAttendance(choice){
   attending = choice;
   const buttons = document.querySelectorAll('.rsvp-buttons button');
-  buttons.forEach(btn => btn.style.opacity = '0.6'); // dim all
+  buttons.forEach(btn => btn.style.opacity = '0.6');
   if(choice){
     document.querySelector('button.confirm').style.opacity = '1';
   } else {
