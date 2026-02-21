@@ -5,15 +5,15 @@
 <title>Mariage Georges & Yara</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-/* Body basic */
 html, body {
-  margin: 0;
-  padding: 0;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
   font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #fff7ee;
-  overflow-x: hidden;
+  overflow-x:hidden;
   scroll-behavior: smooth;
+  background-color:#fff7ee;
 }
 
 /* ===== FIRST PAGE: CLOSED ENVELOPE ===== */
@@ -21,158 +21,171 @@ html, body {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #fff7ee;
   display: flex;
+  justify-content:center;
+  align-items:center;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background: #fff7ee;
 }
 
-/* Envelope background or illustration */
-.landing .envelope-body {
+/* Envelope shape using pseudo-elements */
+.envelope {
+  position: relative;
   width: 300px;
   height: 200px;
-  background: #f4e1d2;
+  background:#f4e1d2;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   border-radius: 15px;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Circle seal / open button */
-.landing .seal {
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
-  background: #c8a96a;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  color: white;
-  font-weight: bold;
+/* Top flap */
+.envelope::before {
+  content:'';
+  position:absolute;
+  top:-100px;
+  left:0;
+  width:0;
+  height:0;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-bottom:100px solid #f4e1d2;
+}
+
+/* Bottom flap */
+.envelope::after {
+  content:'';
+  position:absolute;
+  bottom:-100px;
+  left:0;
+  width:0;
+  height:0;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-top:100px solid #f4e1d2;
+}
+
+/* Wax seal in center */
+.seal {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:70px;
+  height:70px;
+  background: linear-gradient(135deg, #c8a96a, #b8860b);
+  border-radius:50%;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-weight:bold;
+  font-size:2rem;
   transition: transform 0.2s ease;
 }
-.landing .seal:hover { transform: translateX(-50%) scale(1.1); }
-
-/* Envelope title on first page */
-.landing h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 12vw;
-  color: #74583e;
-  margin: 0 0 50px 0;
+.seal:hover {
+  transform:translate(-50%, -50%) scale(1.1);
 }
 
-/* ===== SECOND PAGE: RSVP DETAILS ===== */
+/* ===== SECOND PAGE: RSVP ===== */
 #rsvp-section {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-/* RSVP Names */
 h1.rsvp-names {
   font-family: 'Great Vibes', cursive;
-  font-size: 14vw;
-  color: #74583e;
-  margin: 10px 0;
+  font-size:14vw;
+  color:#74583e;
+  margin:10px 0;
 }
 
-/* Instructions & texts */
-#message, #guest-name, #num-guests,
-p.instruction {
-  font-size: 6vw;
-  color: #74583e;
-  margin: 5px 0;
-  line-height: 1.2;
+#message, #guest-name, #num-guests, p.instruction {
+  font-size:6vw;
+  color:#74583e;
+  margin:5px 0;
+  line-height:1.2;
 }
 
-/* RSVP buttons */
 div.rsvp-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 5px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:5px;
 }
 
 button.confirm, button.decline {
-  font-size: 4vw;
-  padding: 10px 25px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  min-width: 80px;
-  max-width: 120px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: all 0.2s ease;
+  font-size:4vw;
+  padding:10px 25px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  min-width:80px;
+  max-width:120px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
   background: linear-gradient(90deg, #c8a96a, #b8860b);
-  color: white;
+  color:white;
+  transition: all 0.2s ease;
 }
 button.confirm:hover, button.decline:hover { transform: scale(1.05); }
 
-/* Love message box */
 textarea {
-  width: 90%;
-  max-width: 400px;
-  height: 120px;
-  padding: 15px;
-  font-size: 5vw;
-  border-radius: 15px;
-  border: none;
-  background-color: #fff3f0;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  resize: none;
-  margin-top: 5px;
+  width:90%;
+  max-width:400px;
+  height:120px;
+  padding:15px;
+  font-size:5vw;
+  border-radius:15px;
+  border:none;
+  background-color:#fff3f0;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  resize:none;
+  margin-top:5px;
 }
 
-/* Submit button */
 button#submit {
-  font-size: 5vw;
-  padding: 15px 40px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  width: 70%;
-  max-width: 300px;
-  color: white;
-  background: #74583e;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  font-size:5vw;
+  padding:15px 40px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  width:70%;
+  max-width:300px;
+  color:white;
+  background:#74583e;
+  box-shadow:0 6px 20px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
 }
 button#submit:hover {
   transform: scale(1.05);
-  background: #5c4631;
+  background:#5c4631;
 }
 
-/* ===== Mobile tweaks ===== */
-@media (max-width: 480px) {
-  .landing h1, h1.rsvp-names { font-size: 16vw; }
-  #message, #guest-name, #num-guests, p.instruction { font-size: 7vw; }
-  button.confirm, button.decline, button#submit { font-size: 5vw; }
-  textarea { font-size: 5vw; height: 90px; width: 95%; }
-  .landing .seal { width: 50px; height: 50px; font-size: 1.2rem; }
+/* Mobile tweaks */
+@media (max-width:480px){
+  h1.rsvp-names { font-size:16vw; }
+  #message,#guest-name,#num-guests,p.instruction { font-size:7vw; }
+  button.confirm,button.decline,button#submit { font-size:5vw; }
+  textarea{ font-size:5vw; height:90px; width:95%; }
+  .seal{width:50px;height:50px;font-size:1.5rem;}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== FIRST PAGE: CLOSED ENVELOPE ===== -->
+<!-- FIRST PAGE: ENVELOPE -->
 <div class="landing">
-  <h1>Georges & Yara</h1>
-  <div class="envelope-body"></div>
+  <div class="envelope"></div>
   <div class="seal" onclick="openEnvelope()">&#x1F4E9;</div>
 </div>
 
-<!-- ===== SECOND PAGE: RSVP ===== -->
+<!-- SECOND PAGE: RSVP -->
 <div class="container" id="rsvp-section">
   <h1 class="rsvp-names">Georges & Yara</h1>
   <div id="message"></div>
@@ -195,52 +208,38 @@ button#submit:hover {
 </div>
 
 <script>
-// Envelope flap click
-function openEnvelope() {
-  document.querySelector('.landing').style.transition = "opacity 0.7s ease";
-  document.querySelector('.landing').style.opacity = 0;
-  setTimeout(() => { document.querySelector('.landing').style.display = 'none'; }, 700);
-  document.getElementById('rsvp-section').scrollIntoView({behavior: 'smooth'});
+// Open envelope
+function openEnvelope(){
+  document.querySelector('.landing').style.transition="opacity 0.7s ease";
+  document.querySelector('.landing').style.opacity=0;
+  setTimeout(()=>{document.querySelector('.landing').style.display='none';},700);
+  document.getElementById('rsvp-section').scrollIntoView({behavior:'smooth'});
 }
 
-// Get URL parameters
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-const guests = params.get("guests");
-
-// Fill personalized sections
+// URL params
+const params=new URLSearchParams(window.location.search);
+const name=params.get("name");
+const guests=params.get("guests");
 if(name && guests){
-  document.getElementById("message").innerHTML = "Dear <b>" + name + "</b>,";
-  document.getElementById("guest-name").innerText = name;
-  document.getElementById("num-guests").innerText = guests;
+  document.getElementById("message").innerHTML="Dear <b>"+name+"</b>,";
+  document.getElementById("guest-name").innerText=name;
+  document.getElementById("num-guests").innerText=guests;
 }
 
-// Track RSVP silently
-let attending = null;
+// RSVP logic
+let attending=null;
 function selectAttendance(choice){
-  attending = choice;
-  const buttons = document.querySelectorAll('.rsvp-buttons button');
-  buttons.forEach(btn => btn.style.opacity = '0.6');
-  if(choice){
-    document.querySelector('button.confirm').style.opacity = '1';
-  } else {
-    document.querySelector('button.decline').style.opacity = '1';
-  }
+  attending=choice;
+  const buttons=document.querySelectorAll('.rsvp-buttons button');
+  buttons.forEach(btn=>btn.style.opacity='0.6');
+  if(choice){ document.querySelector('button.confirm').style.opacity='1'; }
+  else{ document.querySelector('button.decline').style.opacity='1'; }
 }
 
-// Submit form
 function submitForm(){
-  const loveMsg = document.getElementById("love-message").value;
-  if(attending === null){
-    alert("Please select Yes or No for attendance");
-    return;
-  }
-  alert(
-    "Submitted!\n" +
-    "Attending: " + (attending ? "Yes" : "No") + "\n" +
-    "Message: " + loveMsg
-  );
-  // connect to Google Sheets / WhatsApp / Email later
+  const loveMsg=document.getElementById("love-message").value;
+  if(attending===null){ alert("Please select Yes or No for attendance"); return; }
+  alert("Submitted!\nAttending: "+(attending?"Yes":"No")+"\nMessage: "+loveMsg);
 }
 </script>
 
