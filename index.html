@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Mariage Georges & Yara</title>
+<!-- Google Fonts: Great Vibes for names -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
+/* ===== Global Styles ===== */
 html, body {
   margin:0;
   padding:0;
@@ -16,12 +18,12 @@ html, body {
   background-color:#fff7ee;
 }
 
-/* ===== FIRST PAGE: FULL SCREEN IMAGE ===== */
+/* ===== FIRST PAGE: FULL SCREEN ENVELOPE ===== */
 .landing {
   position: relative;
   width:100%;
   height:100vh;
-  background-image: url('https://i.pinimg.com/originals/49/92/99/499299406190539880.jpg'); /* Use direct image link */
+  background-image: url('envelope.jpg'); /* Your photo in repo root */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -29,20 +31,17 @@ html, body {
   align-items:center;
 }
 
-/* Transparent clickable overlay (seal area) */
+/* Seal clickable overlay */
 .seal-overlay {
   position: absolute;
-  bottom: 15%; /* adjust to where the seal is in your image */
+  bottom: 15%; /* adjust to seal location */
   left:50%;
   transform: translateX(-50%);
   width:80px;
   height:80px;
   cursor:pointer;
   border-radius:50%;
-  background-color: rgba(255,255,255,0.2); /* semi-transparent circle over the seal */
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background-color: rgba(255,255,255,0.2); /* semi-transparent overlay */
   transition: transform 0.2s ease;
 }
 .seal-overlay:hover {
@@ -90,7 +89,7 @@ button.confirm, button.decline {
   min-width:80px;
   max-width:120px;
   box-shadow:0 4px 15px rgba(0,0,0,0.2);
-  background: linear-gradient(90deg, #c8a96a, #b8860b);
+  background: linear-gradient(90deg, #c8a96a, #b8860b); /* gold buttons */
   color:white;
   transition: all 0.2s ease;
 }
@@ -119,7 +118,7 @@ button#submit {
   width:70%;
   max-width:300px;
   color:white;
-  background:#74583e;
+  background:#74583e; /* same as names color */
   box-shadow:0 6px 20px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
 }
@@ -128,7 +127,7 @@ button#submit:hover {
   background:#5c4631;
 }
 
-/* Mobile tweaks */
+/* ===== Mobile Tweaks ===== */
 @media (max-width:480px){
   h1.rsvp-names { font-size:16vw; }
   #message,#guest-name,#num-guests,p.instruction { font-size:7vw; }
@@ -140,12 +139,12 @@ button#submit:hover {
 </head>
 <body>
 
-<!-- FIRST PAGE: IMAGE -->
+<!-- ===== FIRST PAGE ===== -->
 <div class="landing">
   <div class="seal-overlay" onclick="openRSVP()"></div>
 </div>
 
-<!-- SECOND PAGE: RSVP -->
+<!-- ===== SECOND PAGE: RSVP ===== -->
 <div class="container" id="rsvp-section">
   <h1 class="rsvp-names">Georges & Yara</h1>
   <div id="message"></div>
@@ -168,14 +167,14 @@ button#submit:hover {
 </div>
 
 <script>
-// Scroll to RSVP on click
+// ===== Scroll to RSVP on click =====
 function openRSVP(){
   document.querySelector('.landing').style.opacity=0;
   setTimeout(()=>{document.querySelector('.landing').style.display='none';},700);
   document.getElementById('rsvp-section').scrollIntoView({behavior:'smooth'});
 }
 
-// URL params
+// ===== URL Parameters =====
 const params=new URLSearchParams(window.location.search);
 const name=params.get("name");
 const guests=params.get("guests");
@@ -185,7 +184,7 @@ if(name && guests){
   document.getElementById("num-guests").innerText=guests;
 }
 
-// RSVP logic
+// ===== RSVP Selection =====
 let attending=null;
 function selectAttendance(choice){
   attending=choice;
@@ -195,6 +194,7 @@ function selectAttendance(choice){
   else{ document.querySelector('button.decline').style.opacity='1'; }
 }
 
+// ===== Submit Form =====
 function submitForm(){
   const loveMsg=document.getElementById("love-message").value;
   if(attending===null){ alert("Please select Yes or No for attendance"); return; }
