@@ -16,76 +16,37 @@ html, body {
   background-color:#fff7ee;
 }
 
-/* ===== FIRST PAGE: CLOSED ENVELOPE ===== */
+/* ===== FIRST PAGE: FULL SCREEN IMAGE ===== */
 .landing {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  width:100%;
+  height:100vh;
+  background-image: url('https://i.pinimg.com/originals/49/92/99/499299406190539880.jpg'); /* Use direct image link */
+  background-size: cover;
+  background-position: center;
   display: flex;
   justify-content:center;
   align-items:center;
-  flex-direction: column;
-  background: #fff7ee;
 }
 
-/* Envelope shape using pseudo-elements */
-.envelope {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  background:#f4e1d2;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  border-radius: 15px;
-}
-
-/* Top flap */
-.envelope::before {
-  content:'';
-  position:absolute;
-  top:-100px;
-  left:0;
-  width:0;
-  height:0;
-  border-left:150px solid transparent;
-  border-right:150px solid transparent;
-  border-bottom:100px solid #f4e1d2;
-}
-
-/* Bottom flap */
-.envelope::after {
-  content:'';
-  position:absolute;
-  bottom:-100px;
-  left:0;
-  width:0;
-  height:0;
-  border-left:150px solid transparent;
-  border-right:150px solid transparent;
-  border-top:100px solid #f4e1d2;
-}
-
-/* Wax seal in center */
-.seal {
-  position:absolute;
-  top:50%;
+/* Transparent clickable overlay (seal area) */
+.seal-overlay {
+  position: absolute;
+  bottom: 15%; /* adjust to where the seal is in your image */
   left:50%;
-  transform:translate(-50%, -50%);
-  width:70px;
-  height:70px;
-  background: linear-gradient(135deg, #c8a96a, #b8860b);
-  border-radius:50%;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  transform: translateX(-50%);
+  width:80px;
+  height:80px;
   cursor:pointer;
+  border-radius:50%;
+  background-color: rgba(255,255,255,0.2); /* semi-transparent circle over the seal */
   display:flex;
   justify-content:center;
   align-items:center;
-  color:white;
-  font-weight:bold;
-  font-size:2rem;
   transition: transform 0.2s ease;
 }
-.seal:hover {
-  transform:translate(-50%, -50%) scale(1.1);
+.seal-overlay:hover {
+  transform: translateX(-50%) scale(1.1);
 }
 
 /* ===== SECOND PAGE: RSVP ===== */
@@ -173,16 +134,15 @@ button#submit:hover {
   #message,#guest-name,#num-guests,p.instruction { font-size:7vw; }
   button.confirm,button.decline,button#submit { font-size:5vw; }
   textarea{ font-size:5vw; height:90px; width:95%; }
-  .seal{width:50px;height:50px;font-size:1.5rem;}
+  .seal-overlay{width:60px;height:60px;}
 }
 </style>
 </head>
 <body>
 
-<!-- FIRST PAGE: ENVELOPE -->
+<!-- FIRST PAGE: IMAGE -->
 <div class="landing">
-  <div class="envelope"></div>
-  <div class="seal" onclick="openEnvelope()">&#x1F4E9;</div>
+  <div class="seal-overlay" onclick="openRSVP()"></div>
 </div>
 
 <!-- SECOND PAGE: RSVP -->
@@ -208,9 +168,8 @@ button#submit:hover {
 </div>
 
 <script>
-// Open envelope
-function openEnvelope(){
-  document.querySelector('.landing').style.transition="opacity 0.7s ease";
+// Scroll to RSVP on click
+function openRSVP(){
   document.querySelector('.landing').style.opacity=0;
   setTimeout(()=>{document.querySelector('.landing').style.display='none';},700);
   document.getElementById('rsvp-section').scrollIntoView({behavior:'smooth'});
